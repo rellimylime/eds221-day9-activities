@@ -45,6 +45,38 @@ mack_creek_lengths <- mack_creek_vertebrates %>%
   ungroup()
 ```
 
+```{r}
+library(tidyverse)
+library(dplyr)
+
+example_data <- data.frame(
+  stringsAsFactors = FALSE,
+            DBCODE = c("AS006", "AS006", "AS006", "AS006", "AS006"),
+            ENTITY = c(1L, 1L, 1L, 1L, 1L),
+              YEAR = c(1987L, 1987L, 1987L, 1987L, 1987L),
+          SITECODE = c("MACKCC-L","MACKCC-L",
+                       "MACKCC-L","MACKCC-L","MACKCC-L"),
+           SECTION = c("CC", "CC", "CC", "CC", "CC"),
+             REACH = c("L", "L", "L", "L", "L"),
+              PASS = c(1L, 1L, 1L, 1L, 1L),
+           UNITNUM = c(1L, 1L, 1L, 1L, 1L),
+          UNITTYPE = c("R", "R", "R", "R", "R"),
+        VERT_INDEX = c(1L, 2L, 3L, 4L, 5L),
+         PITNUMBER = c(NA, NA, NA, NA, NA),
+           SPECIES = c("ONCL", "ONCL", "ONCL", "ONCL", "ONCL"),
+           LENGTH1 = c(58L, 61L, 89L, 58L, 93L),
+           LENGTH2 = c(NA, NA, NA, NA, NA),
+            WEIGHT = c(1.75, 1.95, 5.6, 2.15, 6.9),
+              CLIP = c("NONE", "NONE", "NONE", "NONE", "NONE"),
+        SAMPLEDATE = c("10/7/87", "10/7/87", "10/7/87", "10/7/87", "10/7/87"),
+             NOTES = c(NA, NA, NA, NA, NA)
+)
+
+example_data <- example_data %>% 
+  mutate(across(where(is.character, tolower)))
+```
+
+
 ### reprex 2
 
 Identify what is causing the problem in the code below (there's only one thing). Then, create a very simple reprex that would help yourself, future you, or a colleague fix the problem. **Post your reprex as an issue in your own fork on GitHub.**
@@ -59,6 +91,40 @@ mack_creek_vertebrates %>%
          theme_minimal() +
          labs(x = "Cutthroat trout length (cm)",
               y = "Weight (g)")
+```
+```{r}
+library(tidyverse)
+library(dplyr)
+library(janitor)
+
+example_data <- data.frame(
+  stringsAsFactors = FALSE,
+            DBCODE = c("AS006", "AS006", "AS006", "AS006", "AS006"),
+            ENTITY = c(1L, 1L, 1L, 1L, 1L),
+              YEAR = c(1987L, 1987L, 1987L, 1987L, 1987L),
+          SITECODE = c("MACKCC-L","MACKCC-L",
+                       "MACKCC-L","MACKCC-L","MACKCC-L"),
+           SECTION = c("CC", "CC", "CC", "CC", "CC"),
+             REACH = c("L", "L", "L", "L", "L"),
+              PASS = c(1L, 1L, 1L, 1L, 1L),
+           UNITNUM = c(1L, 1L, 1L, 1L, 1L),
+          UNITTYPE = c("R", "R", "R", "R", "R"),
+        VERT_INDEX = c(1L, 2L, 3L, 4L, 5L),
+         PITNUMBER = c(NA, NA, NA, NA, NA),
+           SPECIES = c("ONCL", "ONCL", "ONCL", "ONCL", "ONCL"),
+           LENGTH1 = c(58L, 61L, 89L, 58L, 93L),
+           LENGTH2 = c(NA, NA, NA, NA, NA),
+            WEIGHT = c(1.75, 1.95, 5.6, 2.15, 6.9),
+              CLIP = c("NONE", "NONE", "NONE", "NONE", "NONE"),
+        SAMPLEDATE = c("10/7/87", "10/7/87", "10/7/87", "10/7/87", "10/7/87"),
+             NOTES = c(NA, NA, NA, NA, NA)
+)
+
+example_data %>% 
+  clean_names() %>% 
+  ggplot(aes(x = length1, y = weight)) +
+  geom_point(aes(shape = 12))
+
 ```
 
 ## End
